@@ -1,24 +1,21 @@
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
+import { Routes, Route } from "react-router-dom";
 
-node_modules
-dist
-dist-ssr
-*.local
+import Login from "../pages/Login";
+import Register from "../pages/Register";
+import UserDashboard from "../pages/UserDashboard";
+import AdminDashboard from "../pages/AdminDashboard";
+import Profile from "../pages/Profile";
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+function AppRoutes() {
+  return (
+    <Routes>
+      <Route path="/" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/user" element={<UserDashboard />} />
+      <Route path="/admin" element={<AdminDashboard />} />
+      <Route path="/profile" element={<Profile />} />
+    </Routes>
+  );
+}
+
+export default AppRoutes;
