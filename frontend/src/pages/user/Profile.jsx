@@ -38,7 +38,7 @@ function Profile() {
             />
 
             <button onClick={handleUpload}>
-                Upload
+                kirim
             </button>
         </div>
     );
