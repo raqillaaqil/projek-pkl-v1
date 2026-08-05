@@ -18,24 +18,7 @@ function AdminDashboard() {
           Dashboard Admin
         </h1>
 
-        <div className="grid grid-cols-2 gap-6 mt-8">
-          <div className="bg-white shadow rounded-xl p-6">
-            <h2>Total User</h2>
-
-            <p className="text-3xl font-bold mt-2">
-              {totalUsers}
-            </p>
-          </div>
-
-          <div className="bg-white shadow rounded-xl p-6">
-            <h2>Total Admin</h2>
-
-            <p className="text-3xl font-bold mt-2">
-              {totalAdmins}
-            </p>
-          </div>
-        </div>
-
+       
         <div className="mt-8">
           <UserTable />
         </div>

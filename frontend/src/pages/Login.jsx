@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
+
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -16,15 +19,38 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!form.email || !form.password) {
-      alert("Email dan Password wajib diisi");
-      return;
-    }
-
     try {
-      // API LOGIN DISINI
+      const res = await fetch(
+        "http://localhost:5000/api/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(form),
+        }
+      );
+
+      const data = await res.json();
+
+      localStorage.setItem(
+        "token",
+        data.token
+      );
+
+      localStorage.setItem(
+        "user",
+        JSON.stringify(data.user)
+      );
+
+      if (data.user.role === "admin") {
+        navigate("/admin");
+      } else {
+        navigate("/user");
+      }
     } catch (error) {
       console.error(error);
+      alert("Login gagal");
     }
   };
 
@@ -60,17 +86,18 @@ function Login() {
         >
           Login
         </button>
+
         <div className="text-center mt-4">
-  <p className="text-sm text-gray-600">
-    Belum punya akun?{" "}
-    <a
-      href="/register"
-      className="text-black font-semibold"
-    >
-      Register
-    </a>
-  </p>
-</div>
+          <p className="text-sm text-gray-600">
+            Belum punya akun?{" "}
+            <Link
+              to="/register"
+              className="font-semibold hover:underline"
+            >
+              Register
+            </Link>
+          </p>
+        </div>
       </form>
     </div>
   );

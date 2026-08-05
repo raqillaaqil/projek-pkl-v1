@@ -1,7 +1,9 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Register() {
+  const navigate = useNavigate();
+
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -19,9 +21,25 @@ function Register() {
     e.preventDefault();
 
     try {
-      // API REGISTER DISINI
+      const res = await fetch(
+        "http://localhost:5000/api/auth/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(form),
+        }
+      );
+
+      const data = await res.json();
+
+      alert(data.message);
+
+      navigate("/login");
     } catch (error) {
       console.error(error);
+      alert("Register gagal");
     }
   };
 
@@ -64,6 +82,7 @@ function Register() {
         >
           Register
         </button>
+
         <div className="text-center mt-4">
           <p className="text-sm text-gray-600">
             Sudah punya akun?{" "}
@@ -80,4 +99,4 @@ function Register() {
   );
 }
 
-export default Register;  
+export default Register;
