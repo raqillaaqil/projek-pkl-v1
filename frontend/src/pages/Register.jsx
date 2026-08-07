@@ -4,10 +4,14 @@ import { Link, useNavigate } from "react-router-dom";
 function Register() {
   const navigate = useNavigate();
 
-  const [form, setForm] = useState({
-    name: "",
+const [form, setForm] = useState({
+    username: "",
+    nama_depan: "",
+    nama_belakang: "",
     email: "",
     password: "",
+    perusahaan: "",
+    no_telepon: "",
   });
 
   const handleChange = (e) => {
@@ -36,7 +40,9 @@ function Register() {
 
       alert(data.message);
 
-      navigate("/login");
+      if (res.ok) {
+        navigate("/login");
+      }
     } catch (error) {
       console.error(error);
       alert("Register gagal");
@@ -54,8 +60,25 @@ function Register() {
         </h1>
 
         <input
-          name="name"
-          placeholder="Nama"
+          name="username"
+          placeholder="Username"
+          value={form.username}
+          onChange={handleChange}
+          className="w-full border p-3 rounded-lg mb-4"
+        />
+
+        <input
+          name="nama_depan"
+          placeholder="Nama Depan"
+          value={form.nama_depan}
+          onChange={handleChange}
+          className="w-full border p-3 rounded-lg mb-4"
+        />
+
+        <input
+          name="nama_belakang"
+          placeholder="Nama Belakang"
+          value={form.nama_belakang}
           onChange={handleChange}
           className="w-full border p-3 rounded-lg mb-4"
         />
@@ -64,6 +87,7 @@ function Register() {
           name="email"
           type="email"
           placeholder="Email"
+          value={form.email}
           onChange={handleChange}
           className="w-full border p-3 rounded-lg mb-4"
         />
@@ -72,9 +96,27 @@ function Register() {
           name="password"
           type="password"
           placeholder="Password"
+          value={form.password}
           onChange={handleChange}
           className="w-full border p-3 rounded-lg mb-4"
         />
+
+        <input
+          name="perusahaan"
+          placeholder="Perusahaan (opsional)"
+          value={form.perusahaan}
+          onChange={handleChange}
+          className="w-full border p-3 rounded-lg mb-4"
+        />
+
+        <input
+          name="no_telepon"
+          placeholder="Nomor Telepon (opsional)"
+          value={form.no_telepon}
+          onChange={handleChange}
+          className="w-full border p-3 rounded-lg mb-4"
+        />
+        
 
         <button
           type="submit"
@@ -99,4 +141,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default Register;  

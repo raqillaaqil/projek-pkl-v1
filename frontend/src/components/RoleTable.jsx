@@ -4,6 +4,7 @@ function RoleTable() {
     const [roles, setRoles] = useState([]);
     const [roleName, setRoleName] = useState("");
     const [editingRole, setEditingRole] = useState(null);
+    
 
     const fetchRoles = () => {
         fetch("http://localhost:5000/api/roles")

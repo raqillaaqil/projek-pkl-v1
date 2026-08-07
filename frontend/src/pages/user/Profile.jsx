@@ -86,17 +86,33 @@ function Profile() {
                         <div className="w-32 h-32 rounded-full bg-zinc-200 mx-auto" />
                     )}
 
-                    <h2 className="text-2xl font-bold text-center mt-4">
-                        {user?.name}
+                  <h2 className="text-2xl font-bold text-center mt-4">
+                        {user?.nama_depan} {user?.nama_belakang}
                     </h2>
+
+                    <p className="text-center text-gray-500">
+                        @{user?.username}
+                    </p>
 
                     <p className="text-center text-gray-500">
                         {user?.email}
                     </p>
 
-                    <p className="text-center text-gray-500 mb-6">
+                    <p className="text-center text-gray-500">
                         Role: {user?.role}
                     </p>
+
+                    {user?.perusahaan && (
+                        <p className="text-center text-gray-500">
+                            {user.perusahaan}
+                        </p>
+                    )}
+
+                    {user?.no_telepon && (
+                        <p className="text-center text-gray-500 mb-6">
+                            {user.no_telepon}
+                        </p>
+                    )}
 
                     <p className="text-center mb-5">
                         {user?.photo
