@@ -3,16 +3,50 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 export const register = async (req, res) => {
-    const { name, email, password } = req.body;
+    const {
+        username,
+        nama_depan,
+        nama_belakang,
+        email,
+        password,
+        perusahaan,
+        no_telepon,
+    } = req.body;
+
+    if (!username || !nama_depan || !nama_belakang || !email || !password) {
+        return res.status(400).json({
+            message:
+                "Username, nama depan, nama belakang, email, dan password wajib diisi",
+        });
+    }
+
+    const fullName = `${nama_depan} ${nama_belakang}`.trim();
 
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         db.query(
-            "INSERT INTO users (name, email, password, role_id) VALUES (?, ?, ?, ?)",
-            [name, email, hashedPassword, 2],
+            `INSERT INTO users
+                (username, name, nama_depan, nama_belakang, email, password, role_id, perusahaan, no_telepon, status)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'active')`,
+            [
+                username,
+                fullName,
+                nama_depan,
+                nama_belakang,
+                email,
+                hashedPassword,
+                2,
+                perusahaan || null,
+                no_telepon || null,
+            ],
             (err) => {
                 if (err) {
+                    if (err.code === "ER_DUP_ENTRY") {
+                        return res.status(409).json({
+                            message: "Username atau email sudah digunakan",
+                        });
+                    }
                     return res.status(500).json({
                         message: err.message,
                     });
